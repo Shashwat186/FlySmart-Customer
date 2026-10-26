@@ -69,10 +69,8 @@ class PassengerControllerTest {
     }
 
     @Test
-    void showDashboard_shouldFailWithServerError_whenNotLoggedIn() throws Exception {
-        // Known bug: the handler has no login check and throws a NullPointerException,
-        // which GlobalExceptionHandler turns into a 500. It should redirect to /auth/login.
-        mockMvc.perform(get("/passenger/dashboard")).andExpect(status().isInternalServerError());
+    void showDashboard_shouldRedirectToLogin_whenNotLoggedIn() throws Exception {
+        mockMvc.perform(get("/passenger/dashboard")).andExpect(redirectedUrl("/auth/login"));
     }
 
     // ---------- bookings ----------

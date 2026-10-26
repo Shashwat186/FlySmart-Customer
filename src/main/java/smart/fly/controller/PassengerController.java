@@ -45,7 +45,10 @@ public class PassengerController {
 	@GetMapping("/dashboard")
 	public String showDashboard(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
-		User user1 = userService.getUserById(user.getUserId());
+		if (user == null) {
+			return "redirect:/auth/login";
+		}
+
 		model.addAttribute("passenger", user);
 		return "passenger/dashboard";
 	}
