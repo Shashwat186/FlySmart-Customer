@@ -7,11 +7,10 @@ import org.springframework.stereotype.Repository;
 import smart.fly.feedback.model.Feedback;
 import smart.fly.feedback.repository.FeedbackRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.sql.DataSource;

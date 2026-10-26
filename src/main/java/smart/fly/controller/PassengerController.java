@@ -8,7 +8,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import smart.fly.booking.model.Booking;
 import smart.fly.booking.repository.BookingRepository;
 
-import smart.fly.passenger.model.Passenger;
+
 import smart.fly.service.BookingService;
 import smart.fly.service.FeedbackService;
 import smart.fly.service.PassengerService;

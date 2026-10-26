@@ -4,7 +4,6 @@ import smart.fly.exception.AuthenticationException;
 import smart.fly.passenger.model.Passenger;
 import smart.fly.user.model.User;
 
-import java.util.List;
 
 public interface PassengerService {
 	Passenger save(Passenger passenger);

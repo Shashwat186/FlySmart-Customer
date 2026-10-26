@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import smart.fly.exception.AuthenticationException;
-import smart.fly.passenger.model.Passenger;
+
 import smart.fly.user.model.User;
 import smart.fly.user.repository.UserRepository;
 import smart.fly.util.PasswordUtil;

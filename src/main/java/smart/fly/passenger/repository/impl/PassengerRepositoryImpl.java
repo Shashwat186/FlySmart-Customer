@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import smart.fly.passenger.model.Passenger;
 import smart.fly.passenger.repository.PassengerRepository;
-import smart.fly.user.model.User;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+
 
 @Repository
 public class PassengerRepositoryImpl implements PassengerRepository {

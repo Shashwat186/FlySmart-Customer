@@ -1,7 +1,7 @@
 package smart.fly.flight.model;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 import smart.fly.airline.model.Airline;
 import smart.fly.airport.model.Airport;

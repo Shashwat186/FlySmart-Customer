@@ -1,6 +1,6 @@
 package smart.fly.user.repository;
 
-import java.util.List;
+
 
 import smart.fly.user.model.User;
 

@@ -1,15 +1,11 @@
 package smart.fly.service;
  
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
-import smart.fly.exception.FeedbackException;
 import smart.fly.feedback.model.Feedback;
 import smart.fly.feedback.repository.FeedbackRepository;
-import smart.fly.user.repository.UserRepository;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
  
 @Service

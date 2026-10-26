@@ -9,7 +9,7 @@ import smart.fly.passenger.repository.PassengerRepository;
 import smart.fly.user.model.User;
 import smart.fly.user.repository.UserRepository;
 import smart.fly.util.ValidationUtil;
-import java.util.List;
+
 
 @Service
 @Transactional

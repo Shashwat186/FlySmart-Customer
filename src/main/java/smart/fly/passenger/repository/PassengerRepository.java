@@ -1,6 +1,6 @@
 package smart.fly.passenger.repository;
 
-import java.util.List;
+
 
 import smart.fly.passenger.model.Passenger;
 
