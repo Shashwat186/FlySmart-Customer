@@ -119,6 +119,21 @@ class BookingServiceTest {
     }
 
     @Test
+    void createBooking_shouldAcceptStatusStoredInDatabaseCase() {
+        // Arrange: the flight table stores "Scheduled", not "SCHEDULED"
+        flight.setStatus("Scheduled");
+        when(flightRepository.findById(flightId)).thenReturn(flight);
+        when(flightSeatsRepository.findByFlightAndClass(flightId, seatClassId)).thenReturn(flightSeats);
+
+        // Act
+        Booking booking = bookingService.createBooking(passengerId, flightId, seatClassId, 1, new Payment());
+
+        // Assert
+        assertNotNull(booking);
+        verify(bookingRepository).save(booking);
+    }
+
+    @Test
     void createBooking_shouldThrow_whenFlightIsNotScheduled() {
         // Arrange
         flight.setStatus("CANCELLED");

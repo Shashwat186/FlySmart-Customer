@@ -44,7 +44,7 @@ public class BookingService {
 	public Booking createBooking(int passengerId, int flightId, int seatClassId, int seats, Payment payment) {
 		// Validate flight and seat availability
 		Flight flight = flightRepository.findById(flightId);
-		if (!"SCHEDULED".equals(flight.getStatus())) {
+		if (!"SCHEDULED".equalsIgnoreCase(flight.getStatus())) {
 			throw new BookingException("Flight is not available for booking");
 		}
 

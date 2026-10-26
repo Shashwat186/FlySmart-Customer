@@ -86,10 +86,20 @@ public class PassengerController {
 	}
 
 	@GetMapping("/bookings/{id}")
-	public String viewBookingDetails(@PathVariable int id, Model model) {
+	public String viewBookingDetails(@PathVariable int id, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/auth/login";
+		}
+
+		// Booking details are shown on the bookings list; this only guards against other users' bookings.
 		Booking booking = bookingService.getBookingById(id);
-		model.addAttribute("booking", booking);
-		return "passenger/booking-details";
+		if (booking == null || booking.getUserId() != user.getUserId()) {
+			redirectAttributes.addFlashAttribute("error", "Booking not found.");
+		}
+
+		return "redirect:/passenger/bookings";
 	}
 
 	@GetMapping("/cancel/{bookingId}")

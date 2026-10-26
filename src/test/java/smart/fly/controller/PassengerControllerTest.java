@@ -120,16 +120,50 @@ class PassengerControllerTest {
     }
 
     @Test
-    void viewBookingDetails_shouldExposeBooking() throws Exception {
+    void viewBookingDetails_shouldRedirectToLogin_whenNotLoggedIn() throws Exception {
+        mockMvc.perform(get("/passenger/bookings/9")).andExpect(redirectedUrl("/auth/login"));
+
+        verifyNoInteractions(bookingService);
+    }
+
+    @Test
+    void viewBookingDetails_shouldRedirectWithError_whenBookingBelongsToAnotherUser() throws Exception {
         // Arrange
         Booking booking = new Booking();
         booking.setBookingId(9);
+        booking.setUserId(2);
         when(bookingService.getBookingById(9)).thenReturn(booking);
 
         // Act & Assert
         mockMvc.perform(get("/passenger/bookings/9").session(session))
-                .andExpect(view().name("passenger/booking-details"))
-                .andExpect(model().attribute("booking", booking));
+                .andExpect(redirectedUrl("/passenger/bookings"))
+                .andExpect(flash().attribute("error", "Booking not found."))
+                .andExpect(model().attributeDoesNotExist("booking"));
+    }
+
+    @Test
+    void viewBookingDetails_shouldRedirectWithError_whenBookingNotFound() throws Exception {
+        // Arrange
+        when(bookingService.getBookingById(9)).thenReturn(null);
+
+        // Act & Assert
+        mockMvc.perform(get("/passenger/bookings/9").session(session))
+                .andExpect(redirectedUrl("/passenger/bookings"))
+                .andExpect(flash().attribute("error", "Booking not found."));
+    }
+
+    @Test
+    void viewBookingDetails_shouldRedirectToBookingsList_whenBookingIsOwn() throws Exception {
+        // Arrange
+        Booking booking = new Booking();
+        booking.setBookingId(9);
+        booking.setUserId(1);
+        when(bookingService.getBookingById(9)).thenReturn(booking);
+
+        // Act & Assert
+        mockMvc.perform(get("/passenger/bookings/9").session(session))
+                .andExpect(redirectedUrl("/passenger/bookings"))
+                .andExpect(flash().attributeCount(0));
     }
 
     // ---------- cancel ----------

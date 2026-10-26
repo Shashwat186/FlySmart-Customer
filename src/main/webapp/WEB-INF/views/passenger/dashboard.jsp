@@ -349,7 +349,7 @@
                     <a href="${pageContext.request.contextPath}/auth/logout" class="nav-link">
                         <i class="fas fa-sign-out-alt icon"></i>Logout
                     </a>
-                    <a href="${pageContext.request.contextPath}/passenger/profile/${passenger.userId}" class="nav-link user-badge">
+                    <a href="${pageContext.request.contextPath}/passenger/profile" class="nav-link user-badge">
                         <i class="fas fa-user me-2"></i>${user.name}
                     </a>
                     

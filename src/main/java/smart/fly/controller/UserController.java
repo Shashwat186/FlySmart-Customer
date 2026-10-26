@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.servlet.http.HttpSession;
 import smart.fly.service.UserService;
 import smart.fly.user.model.User;
 
@@ -23,16 +23,18 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/profile/{userId}")
-	public String showProfile(@PathVariable int userId, Model model) {
-		User user = userService.getUserById(userId);
-		if (user == null) {
-			
-			model.addAttribute("error", "User not found");
-			return "error"; 
+	@GetMapping("/profile")
+	public String showProfile(HttpSession session, Model model) {
+		User sessionUser = (User) session.getAttribute("user");
+		if (sessionUser == null) {
+			return "redirect:/auth/login";
 		}
 
-		
+		User user = userService.getUserById(sessionUser.getUserId());
+		if (user == null) {
+			return "redirect:/auth/login";
+		}
+
 		model.addAttribute("user", user);
 
 		
@@ -42,5 +44,19 @@ public class UserController {
 		}
 
 		return "passenger/profile"; // Maps to profile.jsp
+	}
+
+	// Old URL kept for existing links; only the logged-in user's own profile can be viewed.
+	@GetMapping("/profile/{userId}")
+	public String showProfileById(@PathVariable int userId, HttpSession session, Model model) {
+		User sessionUser = (User) session.getAttribute("user");
+		if (sessionUser == null) {
+			return "redirect:/auth/login";
+		}
+		if (sessionUser.getUserId() != userId) {
+			return "redirect:/passenger/profile";
+		}
+
+		return showProfile(session, model);
 	}
 }
