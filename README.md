@@ -42,6 +42,17 @@ FLYSMART Customer is the customer-facing flight booking application of FlySmart.
 - MySQL Server  
 - MySQL Workbench  
 - Maven (for dependency management)
+- Docker Desktop (running) – needed only to run the tests
+
+---
+
+## 🧪 Running the Tests
+
+```
+./mvnw verify
+```
+
+Integration tests start a throwaway MySQL 8.4 in Docker using [Testcontainers](https://testcontainers.com/). They never connect to the real database. The container is set up to behave like production: case-sensitive table names and the same `sql_mode` (ANSI quotes). Its schema comes from `src/test/resources/db/schema.sql`, which was captured from production. Re-capture that file whenever the production schema changes.
 
 ---
 
