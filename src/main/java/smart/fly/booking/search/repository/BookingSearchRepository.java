@@ -241,9 +241,9 @@ public class BookingSearchRepository {
 					+ " da.code AS departure_airport_code,\n" + " aa.name AS arrival_airport_name,\n"
 					+ " aa.code AS arrival_airport_code,\n" + " f.Departure_Date_Time,\n" + " f.Arrival_Date_Time,\n"
 					+ " f.Status\n" + "FROM\n" + " flight f\n" + "JOIN\n"
-					+ " Airline al ON f.Airline_ID = al.Airline_ID\n" + "JOIN\n"
-					+ " Airport da ON f.Departure_Airport_ID = da.Airport_ID\n" + "JOIN\n"
-					+ " Airport aa ON f.Arrival_Airport_ID = aa.Airport_ID\n" + "WHERE Flight_ID = ?";
+					+ " airline al ON f.Airline_ID = al.Airline_ID\n" + "JOIN\n"
+					+ " airport da ON f.Departure_Airport_ID = da.Airport_ID\n" + "JOIN\n"
+					+ " airport aa ON f.Arrival_Airport_ID = aa.Airport_ID\n" + "WHERE Flight_ID = ?";
 
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, flightId);
