@@ -2,6 +2,8 @@ package smart.fly.controller;
 
 
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,7 @@ import java.util.List;
 
 @Controller
 public class PaymentController {
+	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
 	@Autowired
 	private DataSource dataSource;//Newer alternative to drivermanager.
@@ -134,7 +137,7 @@ public class PaymentController {
 				} catch (SQLException ignored) {
 				}
 			}
-			e.printStackTrace();
+			logger.error("Payment processing failed", e);
 			return new ModelAndView("paymentFailed");
 		} finally {
 			try {

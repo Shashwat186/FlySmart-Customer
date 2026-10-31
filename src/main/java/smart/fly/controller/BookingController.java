@@ -177,9 +177,9 @@ public class BookingController {
 		model.addAttribute("availableSeats", availableSeats);
 		model.addAttribute("selectedSeatClassId", seatClassId); // Pass selected seat class ID if available
 
-		System.out.println("Selected Seat Class ID: " + seatClassId);
-		System.out.println("Number of Adults from Search: " + adults);
-		System.out.println("Number of Children from Search: " + children);
+		logger.debug("Selected Seat Class ID: {}", seatClassId);
+		logger.debug("Number of Adults from Search: {}", adults);
+		logger.debug("Number of Children from Search: {}", children);
 
 		return "booking/form";
 	}
@@ -228,20 +228,18 @@ public class BookingController {
 				totalPrice = Double.parseDouble(totalPriceStr);
 			} catch (NumberFormatException e) {
 
-				System.err.println("Error parsing totalPrice: " + totalPriceStr + " - " + e.getMessage());
+				logger.error("Error parsing totalPrice: {}", totalPriceStr, e);
 
 			}
 		}
-		System.out.println("DEBUG: Adults in session:");
+		logger.debug("Adults in session:");
 		for (int i = 0; i < adults.size(); i++) {
-			System.out.println("DEBUG: Adult " + i + " - Name: " + adults.get(i).getName() + ", Email: "
-					+ adults.get(i).getEmail());
+			logger.debug("Adult {} - Name: {}, Email: {}", i, adults.get(i).getName(), adults.get(i).getEmail());
 		}
 
-		System.out.println("DEBUG: Children in session:");
+		logger.debug("Children in session:");
 		for (int i = 0; i < children.size(); i++) {
-			System.out.println("DEBUG: Child " + i + " - Name: " + children.get(i).getName() + ", Age: "
-					+ children.get(i).getAge());
+			logger.debug("Child {} - Name: {}, Age: {}", i, children.get(i).getName(), children.get(i).getAge());
 		}
 
 		// Store data in session

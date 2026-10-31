@@ -1,5 +1,7 @@
 package smart.fly.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class BookingService {
+	private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
 	private final BookingRepository bookingRepository;
 	private final FlightRepository flightRepository;
@@ -116,11 +119,11 @@ public class BookingService {
 					return rowsAffected > 0;
 				} else {
 					// Handle the case where status is null
-					System.out.println("Warning: Booking ID " + bookingId + " has a null status.");
+					logger.warn("Booking ID {} has a null status.", bookingId);
 					return false; 
 				}
 			} else {
-				System.out.println("Warning: User ID " + userId + " does not own Booking ID " + bookingId + ".");
+				logger.warn("User ID {} does not own Booking ID {}.", userId, bookingId);
 				return false; // Booking does not belong to the user
 			}
 		}

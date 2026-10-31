@@ -1,5 +1,7 @@
 package smart.fly.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/passenger")
 public class PassengerController {
+	private static final Logger logger = LoggerFactory.getLogger(PassengerController.class);
 	private final PassengerService passengerService;
 	private final BookingService bookingService;
 	private final UserService userService;
@@ -122,8 +125,7 @@ public class PassengerController {
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error",
 					"An error occurred while cancelling booking ID " + bookingId + ": " + e.getMessage());
-			// Log the error for debugging
-			e.printStackTrace();
+			logger.error("Error cancelling booking ID {}", bookingId, e);
 		}
 
 		return "redirect:/passenger/bookings";
